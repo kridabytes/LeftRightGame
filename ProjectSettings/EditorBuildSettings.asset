@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/WellcomeScene.unity
+    guid: f147af0432c57954ab78a2447eeadba2
+  - enabled: 1
+    path: Assets/Scenes/HomeScene.unity
+    guid: db3018199855e3a4cbb014d3a0021811
+  - enabled: 1
+    path: Assets/Scenes/SelectMatchPanel.unity
+    guid: 7fde91b889274304c9d3b72ade71743f
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/GamePlayScene.unity
+    guid: 57d56089b2c3fdb448bb834d5c832f43
+  - enabled: 0
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 11462da4637b9c940809e590c4c312d0
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_UseUCBPForAssetBundles: 0
