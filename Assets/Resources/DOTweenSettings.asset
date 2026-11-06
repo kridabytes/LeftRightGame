@@ -50,7 +50,7 @@ MonoBehaviour:
     deAudioEnabled: 0
     deAudioV2Enabled: 0
     deUnityExtendedEnabled: 0
-    epoOutlineEnabled: 1
+    epoOutlineEnabled: 0
   createASMDEF: 0
   showPlayingTweens: 0
   showPausedTweens: 0

@@ -147,8 +147,6 @@ GameObject:
   - component: {fileID: 3920600732023915224}
   - component: {fileID: 2952570258618162791}
   - component: {fileID: 5721172859641729425}
-  - component: {fileID: 4037847094744601418}
-  - component: {fileID: 7610024363872008685}
   - component: {fileID: 3339190366885395313}
   m_Layer: 5
   m_Name: ProfileImage
@@ -215,38 +213,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 11.06
---- !u!114 &4037847094744601418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749737395693086702}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 1, g: 0.6443301, b: 0, a: 1}
-  m_EffectDistance: {x: 2, y: -2}
-  m_UseGraphicAlpha: 1
---- !u!114 &7610024363872008685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749737395693086702}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bef76353dfcf4146b8b7ee9bad83307, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowColor: {r: 1, g: 0.6431373, b: 0, a: 1}
-  shadowDistance: {x: -3.2, y: -3.56}
-  m_UseGraphicAlpha: 1
-  iterations: 33
-  shadowSpread: {x: 4, y: 10}
 --- !u!114 &3339190366885395313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +482,7 @@ MonoBehaviour:
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 11.06
 --- !u!1 &7997932497750225930
@@ -784,8 +750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 9020033123261673577}
   playerScoreText: {fileID: 2198506943320635362}
-  playerProfileImage: {fileID: 5721172859641729425}
-  playerOutline: {fileID: 4037847094744601418}
+  playerProfileImage: {fileID: 1553595213386993358}
   activePlayerColor: {r: 1, g: 0.6431373, b: 0, a: 1}
-  fillImage: {fileID: 0}
+  fillImage: {fileID: 4529244444012364804}
   defaultPlayerColor: {r: 0, g: 0, b: 0, a: 1}

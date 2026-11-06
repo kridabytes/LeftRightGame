@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Edlore.GamePages;
 using Edlore.Utilities;
 using Fusion;
@@ -16,8 +17,8 @@ public class MatchGameplayUI : BasePage
     [SerializeField]
     private TMP_Text matchTimerText;
 
-    [SerializeField]
-    private TMP_Text turnTimerText;
+    // [SerializeField]
+    // private TMP_Text turnTimerText;
 
     [SerializeField]
     private TMP_Text activePlayerText;
@@ -56,12 +57,31 @@ public class MatchGameplayUI : BasePage
     private bool isTrackingTouch;
     private int trackedTouchId;
     private bool isTrackingMouse;
+    private bool hasDisplayedDirection;
+    private TurnDirection displayedDirection;
+    private int displayedPlayerIndex;
+    private float lastTurnTimeRemaining;
+    private Vector3 directionArrowBaseScale;
+    private Vector2 directionArrowBasePosition;
+    private Vector3 leftButtonBaseScale;
+    private Vector3 rightButtonBaseScale;
+    private Tween directionArrowTween;
+    private Tween leftButtonTween;
+    private Tween rightButtonTween;
 
     private void Awake()
     {
         PageFactory.Add(this);
+        CacheAnimationDefaults();
         InitializePlayerControllers();
         UpdateInputControls();
+    }
+
+    private void OnDestroy()
+    {
+        directionArrowTween?.Kill();
+        leftButtonTween?.Kill();
+        rightButtonTween?.Kill();
     }
 
     private void Update()
@@ -108,22 +128,43 @@ public class MatchGameplayUI : BasePage
 
     public void OnLeftClicked()
     {
-        if (
-            !GameInputSettings.UseSwipeControls
-            && matchManager != null
-            && matchManager.HasSpawned
-        )
+        AnimateInputButton(leftInputButton, leftButtonBaseScale, ref leftButtonTween);
+        if (!GameInputSettings.UseSwipeControls && matchManager != null && matchManager.HasSpawned)
             matchManager.SubmitLocalInput(PlayerDirectionInput.Left);
     }
 
     public void OnRightClicked()
     {
-        if (
-            !GameInputSettings.UseSwipeControls
-            && matchManager != null
-            && matchManager.HasSpawned
-        )
+        AnimateInputButton(rightInputButton, rightButtonBaseScale, ref rightButtonTween);
+        if (!GameInputSettings.UseSwipeControls && matchManager != null && matchManager.HasSpawned)
             matchManager.SubmitLocalInput(PlayerDirectionInput.Right);
+    }
+
+    private void CacheAnimationDefaults()
+    {
+        if (arrorwDirectionImage != null)
+        {
+            RectTransform arrowTransform = arrorwDirectionImage.rectTransform;
+            directionArrowBaseScale = arrowTransform.localScale;
+            directionArrowBasePosition = arrowTransform.anchoredPosition;
+        }
+
+        if (leftInputButton != null)
+            leftButtonBaseScale = leftInputButton.transform.localScale;
+
+        if (rightInputButton != null)
+            rightButtonBaseScale = rightInputButton.transform.localScale;
+    }
+
+    private void AnimateInputButton(GameObject button, Vector3 baseScale, ref Tween tween)
+    {
+        if (button == null)
+            return;
+
+        tween?.Kill();
+        Transform buttonTransform = button.transform;
+        buttonTransform.localScale = baseScale;
+        tween = buttonTransform.DOPunchScale(baseScale * 0.12f, 0.22f, 6, 0.5f).SetLink(gameObject);
     }
 
     private void UpdateInputControls()
@@ -205,7 +246,7 @@ public class MatchGameplayUI : BasePage
     private void UpdateTimers()
     {
         UpdateTimerText(matchTimerText, matchManager.GetMatchTimeRemaining());
-        UpdateTimerText(turnTimerText, matchManager.GetTurnTimeRemaining());
+        // UpdateTimerText(turnTimerText, matchManager.GetTurnTimeRemaining());
     }
 
     private void UpdateTimerText(TMP_Text text, float time)
@@ -234,15 +275,78 @@ public class MatchGameplayUI : BasePage
         Sprite leftSprite = matchManager.GetArrowSprite(TurnDirection.Left) ?? leftArrowSprite;
         Sprite rightSprite = matchManager.GetArrowSprite(TurnDirection.Right) ?? rightArrowSprite;
 
+        TurnDirection expectedDirection = matchManager.ExpectedDirection;
+        float turnTimeRemaining = matchManager.GetTurnTimeRemaining();
+        bool nextTurnStarted =
+            hasDisplayedDirection
+            && (
+                displayedPlayerIndex != currentIndex
+                || turnTimeRemaining > lastTurnTimeRemaining + 0.1f
+            );
+
         if (arrorwDirectionImage != null)
-            arrorwDirectionImage.sprite =
-                matchManager.ExpectedDirection == TurnDirection.Left ? leftSprite : rightSprite;
+        {
+            Sprite expectedSprite =
+                expectedDirection == TurnDirection.Left ? leftSprite : rightSprite;
+
+            if (!hasDisplayedDirection)
+            {
+                arrorwDirectionImage.sprite = expectedSprite;
+                AnimateDirectionArrowIntro();
+                hasDisplayedDirection = true;
+            }
+            else if (displayedDirection != expectedDirection || nextTurnStarted)
+            {
+                AnimateDirectionArrowChange(expectedSprite, expectedDirection);
+            }
+            else if (arrorwDirectionImage.sprite != expectedSprite)
+            {
+                arrorwDirectionImage.sprite = expectedSprite;
+            }
+
+            displayedDirection = expectedDirection;
+            displayedPlayerIndex = currentIndex;
+        }
+
+        lastTurnTimeRemaining = turnTimeRemaining;
 
         if (leftButtonArrowImage != null)
             leftButtonArrowImage.sprite = leftSprite;
 
         if (rightButtonArrowImage != null)
             rightButtonArrowImage.sprite = rightSprite;
+    }
+
+    private void AnimateDirectionArrowIntro()
+    {
+        RectTransform arrowTransform = arrorwDirectionImage.rectTransform;
+        directionArrowTween?.Kill();
+        arrowTransform.localScale = directionArrowBaseScale * 0.75f;
+        directionArrowTween = arrowTransform
+            .DOScale(directionArrowBaseScale, 0.32f)
+            .SetEase(Ease.OutBack)
+            .SetLink(gameObject);
+    }
+
+    private void AnimateDirectionArrowChange(Sprite expectedSprite, TurnDirection direction)
+    {
+        RectTransform arrowTransform = arrorwDirectionImage.rectTransform;
+        directionArrowTween?.Kill();
+        arrowTransform.anchoredPosition = directionArrowBasePosition;
+        arrowTransform.localScale = directionArrowBaseScale;
+
+        float offset = direction == TurnDirection.Left ? -28f : 28f;
+        Vector2 directionPosition = directionArrowBasePosition + Vector2.right * offset;
+        directionArrowTween = DOTween
+            .Sequence()
+            .Append(arrowTransform.DOAnchorPos(directionPosition, 0.12f).SetEase(Ease.InQuad))
+            .Join(arrowTransform.DOScale(directionArrowBaseScale * 0.8f, 0.12f))
+            .AppendCallback(() => arrorwDirectionImage.sprite = expectedSprite)
+            .Append(
+                arrowTransform.DOAnchorPos(directionArrowBasePosition, 0.22f).SetEase(Ease.OutBack)
+            )
+            .Join(arrowTransform.DOScale(directionArrowBaseScale, 0.22f).SetEase(Ease.OutBack))
+            .SetLink(gameObject);
     }
 
     private void UpdatePlayerControllers()
@@ -277,6 +381,7 @@ public class MatchGameplayUI : BasePage
             );
         }
     }
+
     private void RefreshConnectedPlayers()
     {
         connectedPlayers.Clear();
@@ -389,5 +494,4 @@ public class MatchGameplayUI : BasePage
 
         return characterDetails.charaacterDetails[profileIndex].characterImage;
     }
-
 }

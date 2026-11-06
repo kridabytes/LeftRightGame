@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Edlore Game
+  productName: LeftRIght
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -258,19 +258,19 @@ PlayerSettings:
   clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a
   templatePackageId: com.unity.template.urp-blank@17.0.12
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
-  useCustomMainGradleTemplate: 0
+  useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 0
   useCustomBaseGradleTemplate: 0
-  useCustomGradlePropertiesTemplate: 0
-  useCustomGradleSettingsTemplate: 0
+  useCustomGradlePropertiesTemplate: 1
+  useCustomGradleSettingsTemplate: 1
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 2
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: '{inproject}: Keystore/user.keystore'
+  AndroidKeyaliasName: kridabytes
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidEnableArm64MTE: 0
   AndroidBuildApkPerCpuArchitecture: 0
@@ -282,7 +282,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -824,25 +824,25 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2;FUSION_2;FUSION_2_0;FUSION_2_0_13;FUSION_2_OR_NEWER;FUSION_2_0_OR_NEWER
-    EmbeddedLinux: FUSION_LOGLEVEL_INFO
-    GameCoreScarlett: FUSION_LOGLEVEL_INFO
-    GameCoreXboxOne: FUSION_LOGLEVEL_INFO
-    Kepler: FUSION_LOGLEVEL_INFO
-    LinuxHeadlessSimulation: FUSION_LOGLEVEL_INFO
-    Nintendo Switch: FUSION_LOGLEVEL_INFO
-    Nintendo Switch 2: FUSION_LOGLEVEL_INFO
-    PS4: FUSION_LOGLEVEL_INFO
-    PS5: FUSION_LOGLEVEL_INFO
-    QNX: FUSION_LOGLEVEL_INFO
+    Android: FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2;FUSION_2;FUSION_2_0;FUSION_2_0_13;FUSION_2_OR_NEWER;FUSION_2_0_OR_NEWER;DOTWEEN
+    EmbeddedLinux: FUSION_LOGLEVEL_INFO;DOTWEEN
+    GameCoreScarlett: FUSION_LOGLEVEL_INFO;DOTWEEN
+    GameCoreXboxOne: FUSION_LOGLEVEL_INFO;DOTWEEN
+    Kepler: FUSION_LOGLEVEL_INFO;DOTWEEN
+    LinuxHeadlessSimulation: FUSION_LOGLEVEL_INFO;DOTWEEN
+    Nintendo Switch: FUSION_LOGLEVEL_INFO;DOTWEEN
+    Nintendo Switch 2: FUSION_LOGLEVEL_INFO;DOTWEEN
+    PS4: FUSION_LOGLEVEL_INFO;DOTWEEN
+    PS5: FUSION_LOGLEVEL_INFO;DOTWEEN
+    QNX: FUSION_LOGLEVEL_INFO;DOTWEEN
     Server: FUSION_LOGLEVEL_INFO
-    Standalone: FUSION_WEAVER;FUSION2;FUSION_2;FUSION_2_0;FUSION_2_0_13;FUSION_2_OR_NEWER;FUSION_2_0_OR_NEWER;FUSION_LOGLEVEL_INFO
-    VisionOS: FUSION_LOGLEVEL_INFO
-    WebGL: FUSION_LOGLEVEL_INFO
-    Windows Store Apps: FUSION_LOGLEVEL_INFO
-    XboxOne: FUSION_LOGLEVEL_INFO
-    iPhone: FUSION_LOGLEVEL_INFO
-    tvOS: FUSION_LOGLEVEL_INFO
+    Standalone: FUSION_WEAVER;FUSION2;FUSION_2;FUSION_2_0;FUSION_2_0_13;FUSION_2_OR_NEWER;FUSION_2_0_OR_NEWER;FUSION_LOGLEVEL_INFO;DOTWEEN
+    VisionOS: FUSION_LOGLEVEL_INFO;DOTWEEN
+    WebGL: FUSION_LOGLEVEL_INFO;DOTWEEN
+    Windows Store Apps: FUSION_LOGLEVEL_INFO;DOTWEEN
+    XboxOne: FUSION_LOGLEVEL_INFO;DOTWEEN
+    iPhone: FUSION_LOGLEVEL_INFO;DOTWEEN
+    tvOS: FUSION_LOGLEVEL_INFO;DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

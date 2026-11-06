@@ -15,10 +15,8 @@ public class GameplayPlayerController : MonoBehaviour
     private Image playerProfileImage;
 
     [SerializeField]
-    private Outline playerOutline;
-
-    [SerializeField]
     private Color activePlayerColor;
+
     [SerializeField]
     private Image fillImage;
 
@@ -58,23 +56,16 @@ public class GameplayPlayerController : MonoBehaviour
         if (
             playerProfileImage != null
             && profileSprite != null
-            && playerProfileImage.GetComponent<Image>().sprite
-                != profileSprite
+            && playerProfileImage.GetComponent<Image>().sprite != profileSprite
         )
             playerProfileImage.sprite = profileSprite;
 
         float fillAmount =
             isActivePlayer && turnDuration > 0f
                 ? Mathf.Clamp01(turnTimeRemaining / turnDuration)
-                : 1f;
+                : 0f;
 
         if (fillImage != null)
             fillImage.fillAmount = fillAmount;
-
-        if (playerOutline != null)
-        {
-            playerOutline.effectColor = isActivePlayer ? activePlayerColor : defaultPlayerColor;
-            playerOutline.enabled = !isActivePlayer || fillAmount <= 0f;
-        }
     }
 }
